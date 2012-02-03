@@ -1,0 +1,16 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    flatDir name: 'localDiskRepo', dirs: 'lib'
+}
+
+dependencies {
+    groovy group: 'org.codehaus.groovy', name: 'groovy', version: '1.7.10'
+    groovy 'commons-logging:commons-logging:1.1.1'
+    groovy 'org.spockframework:spock-core:0.5-groovy-1.7'
+    groovy 'org.gmock:gmock:0.8.1'
+    groovy 'hamcrest-all:hamcrest-all:1.3.0RC2'
+    groovy 'org.gcontracts:gcontracts:1.1.3'
+}
