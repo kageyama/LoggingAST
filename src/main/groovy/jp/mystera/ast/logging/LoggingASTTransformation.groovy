@@ -42,16 +42,24 @@ class LoggingASTTransformation implements ASTTransformation {
                 assert blockStatement
                 List<Statement> existingStatement = blockStatement.statements
                 existingStatement.add(0, createStartLogStatement(method))
-                existingStatement.add(createStartLogStatement(method))
+                existingStatement.add(createEndLogStatement(method))
             }
         }
     }
 
     private Statement createStartLogStatement(MethodNode method) {
+        return createLogStatement('Start ', method)
+    }
+
+    private Statement createEndLogStatement(MethodNode method) {
+        return createLogStatement('End ', method)
+    }
+
+    private Statement createLogStatement(String prefix, MethodNode method) {
         String methodName = method.name
         Parameter[] parameters = method.parameters
 
-        String verbatimText = methodName + '('
+        String verbatimText = prefix + methodName + '('
         parameters.each {
             verbatimText += '${' + it.name + '}, '
         }
@@ -62,7 +70,7 @@ class LoggingASTTransformation implements ASTTransformation {
             new VariableExpression(it.name)
         }
 
-        List<ConstantExpression> constantExpressionList = [new ConstantExpression(methodName + '(')]
+        List<ConstantExpression> constantExpressionList = [new ConstantExpression(prefix + methodName + '(')]
         (1..parameters.size() - 1).each {constantExpressionList << new ConstantExpression(', ')}
         constantExpressionList << new ConstantExpression(')')
 

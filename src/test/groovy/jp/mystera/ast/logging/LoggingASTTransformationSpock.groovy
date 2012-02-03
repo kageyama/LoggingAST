@@ -1,9 +1,8 @@
 package jp.mystera.ast.logging
 
 import org.gmock.WithGMock
-import spock.lang.Specification
-import static org.hamcrest.Matchers.instanceOf
 import spock.lang.Ignore
+import spock.lang.Specification
 
 @WithGMock
 class LoggingASTTransformationSpock extends Specification {
@@ -11,7 +10,8 @@ class LoggingASTTransformationSpock extends Specification {
         setup:
         def testClass = new TestClass()
         def mockLogger = mock()
-        mockLogger.info(instanceOf(GString)).returns(true).times(2)
+        mockLogger.info('Start testMethod(aaaa, bbbb)').returns(true).once()
+        mockLogger.info('End testMethod(aaaa, bbbb)').returns(true).once()
         testClass.log = mockLogger
 
         when:
