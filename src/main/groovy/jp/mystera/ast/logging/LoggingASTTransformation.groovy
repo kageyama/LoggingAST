@@ -21,7 +21,7 @@ class LoggingASTTransformation implements ASTTransformation {
     @Requires({
         astNodes && astNodes[0] && astNodes[0] instanceof AnnotationNode \
         && astNodes[0].classNode?.name == WithLogging.class.name \
-        && astNodes[1] && astNodes[1] instanceof MethodNode
+        && astNodes[1]
     })
     void visit(org.codehaus.groovy.ast.ASTNode[] astNodes, org.codehaus.groovy.control.SourceUnit sourceUnit) {
         List<ClassNode> classes = sourceUnit.AST?.classes
